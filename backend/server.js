@@ -15,9 +15,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/internship_db')
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/internship_db', {
+  serverSelectionTimeoutMS: 5000, // 5 seconds timeout
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds
+})
+.then(() => console.log('Successfully connected to MongoDB Atlas ✅'))
+.catch((err) => {
+  console.error('❌ MongoDB Connection Error Details:');
+  console.error(err.message);
+});
 
 app.use('/api/auth', authRoutes);
 
