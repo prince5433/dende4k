@@ -17,7 +17,7 @@ export default function Register() {
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', { username, email, password });
+      await axios.post('https://intern-6kkk.onrender.com/api/auth/register', { username, email, password });
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
